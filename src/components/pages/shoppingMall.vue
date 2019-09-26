@@ -32,29 +32,26 @@
       <img v-lazy="adBanner.PICTURE_ADDRESS" width="100%" />
     </div>
 
-    <div class="recommend-area">
-      <div class="recommend-title">
-         商品推荐
-      </div>
-      <div class="recommend-body">
-        <swiper>
-          <swiper-slide v-for="(good, index) in recommendGoods" :key="index">
-            <div class="recommend-item">
-              <img :src="good.image" width="100%">
-              <div>{{good.goodsName}}</div>
-              <div>￥{{good.goodsPrice}}(￥{{good.mallPrice}})</div>
-            </div>
-          </swiper-slide>
-        </swiper>
-      </div>
-    </div>
+    <!-- recommend-area -->
+    
+      <swiperDefault :goods="recommendGoods"></swiperDefault>
+  
+    
+
+    <!--floor one area-->
+    <floor-Component :floorData="floor1" :floorTitle="floorName.floor1"></floor-Component>
+  
+  <!--floor two area-->
+    <floor-Component :floorData="floor2" :floorTitle="floorName.floor2"></floor-Component>
+  
+  <!--floor three area-->
+    <floor-Component :floorData="floor3" :floorTitle="floorName.floor3"></floor-Component>
   </div>
 </template>
 <script>
 import axios from "axios";
-
-import {swiper,swiperSlider}from 'vue-awesome-swiper'
-import 'swiper/dist/css/swiper.css'
+import swiperDefault from "../swiper/swiperDefault";
+import floorComponent from "../component/floorComponent";
 
 export default {
   data() {
@@ -63,11 +60,18 @@ export default {
       bannerPic: [],
       category: [],
       adBanner: [],
-      recommendGoods:[],
+      floor1: [],
+      floor2: [],
+      floor3: [],
+      recommendGoods: [],
+      floorName:{},
+      swiperOption: {
+        slidesPerView: 3
+      }
     };
   },
-  components:{
-    swiper,swiperSlider
+  components: {
+    swiperDefault,floorComponent
   },
   created() {
     axios({
@@ -76,11 +80,18 @@ export default {
       method: "get"
     })
       .then(response => {
-        this.category = response.data.data.category;
-        this.adBanner = response.data.data.advertesPicture;
-        this.bannerPic = response.data.data.slides;
-        this.recommendGoods = response.data.data.recommend;
         console.log(response);
+        if (response.status == 200) {
+          this.category = response.data.data.category;
+          this.adBanner = response.data.data.advertesPicture;
+          this.bannerPic = response.data.data.slides;
+          this.recommendGoods = response.data.data.recommend;
+          this.floor1 = response.data.data.floor1;
+          this.floor2 = response.data.data.floor2;
+          this.floor3 = response.data.data.floor3;
+          this.floorName = response.data.data.floorName;
+         
+        }
       })
       .catch(error => {
         console.log(error);
@@ -137,14 +148,8 @@ export default {
   }
 }
 
-.recommend-area{
-  background-color: #fff;
-  margin-top: .3rem;
-  .recommend-title{
-    border-bottom: 1px solid #eee;
-    font-size: 14px;
-    padding: .2rem;
-    color: @main-color;
-  }
-}
+
+
+
+
 </style>
