@@ -7,7 +7,7 @@
           <div class="recommend-item">
             <img :src="good.image" width="80%" />
             <div>{{good.goodsName}}</div>
-            <div>￥{{good.price}}(￥{{good.mallPrice}})</div>
+            <div>￥{{good.price | mFilter}}(￥{{good.mallPrice | mFilter}})</div>  <!--  | 符号前面是过滤器的传参，后面是过滤器的返回值，前面传入参数，后面在过滤器的函数里面可以看到传参的值 -->
           </div>
         </swiper-slide>
       </swiper>
@@ -18,6 +18,7 @@
 <script>
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
+import {toMoney} from '@/filter/moneyFilter.js'
 
 export default {
   props: ["goods"],
@@ -37,6 +38,11 @@ export default {
     };
   },
 
+  filters:{
+    mFilter(money){
+        return toMoney(money);
+    }
+  },
   components: {
     swiper,
     swiperSlide
@@ -64,6 +70,7 @@ export default {
     border-right: 1px solid #eee;
     font-size: 12px;
     text-align: center;
+    padding-bottom: 0.5rem;
   }
 }
 </style>

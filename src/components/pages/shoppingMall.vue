@@ -33,25 +33,32 @@
     </div>
 
     <!-- recommend-area -->
-    
-      <swiperDefault :goods="recommendGoods"></swiperDefault>
-  
-    
+
+    <swiperDefault :goods="recommendGoods"></swiperDefault>
 
     <!--floor one area-->
     <floor-Component :floorData="floor1" :floorTitle="floorName.floor1"></floor-Component>
-  
-  <!--floor two area-->
+
+    <!--floor two area-->
     <floor-Component :floorData="floor2" :floorTitle="floorName.floor2"></floor-Component>
-  
-  <!--floor three area-->
+
+    <!--floor three area-->
     <floor-Component :floorData="floor3" :floorTitle="floorName.floor3"></floor-Component>
+  
+    <!--Hot Area-->
+    <hot-area :hotGoods="hotGoods"></hot-area>
+  
+  
+  
   </div>
 </template>
 <script>
 import axios from "axios";
 import swiperDefault from "../swiper/swiperDefault";
 import floorComponent from "../component/floorComponent";
+import hotArea from "../component/hotArea";
+import url from "@/serviceAPI.config.js"
+
 
 export default {
   data() {
@@ -60,23 +67,26 @@ export default {
       bannerPic: [],
       category: [],
       adBanner: [],
+      recommendGoods: [],
       floor1: [],
       floor2: [],
       floor3: [],
-      recommendGoods: [],
-      floorName:{},
+      floorName: {},
+      hotGoods:[],
       swiperOption: {
         slidesPerView: 3
       }
     };
   },
+
   components: {
-    swiperDefault,floorComponent
+    swiperDefault,
+    floorComponent,
+    hotArea
   },
   created() {
     axios({
-      url:
-        "https://www.easy-mock.com/mock/5d82f435e4d5197784494880/expmale/goods",
+      url:url.getShopingMallInfo,
       method: "get"
     })
       .then(response => {
@@ -90,7 +100,7 @@ export default {
           this.floor2 = response.data.data.floor2;
           this.floor3 = response.data.data.floor3;
           this.floorName = response.data.data.floorName;
-         
+          this.hotGoods = response.data.data.hotGoods;
         }
       })
       .catch(error => {
@@ -147,9 +157,6 @@ export default {
     flex: 1;
   }
 }
-
-
-
 
 
 </style>
