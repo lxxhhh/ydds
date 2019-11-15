@@ -4,6 +4,7 @@ const glob = require('glob');
 const {resolve} = require('path');
 
 exports.initSchemas = () => {
+    //引入Schema的所有文件，根据文件夹的不同自己去调整
     glob.sync(resolve(__dirname,'./schema','**/*.js')).forEach(require);
 }
 
