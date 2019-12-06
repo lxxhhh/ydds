@@ -3,9 +3,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId;
+
+//加密
 const bcrypt = require('bcrypt'); 
 
-// 设置加密的位数
+// 设置加密的字符
 const SALT_WORK_FACTOR = 10;
 
 // 创建UserSchema
@@ -30,5 +32,19 @@ userSchema.pre('save',function(next){
     });
 });
 
+userSchema.methods = {
+    //密码校验  客户端密码_passsWord,，一个是数据库取出来的密码paassWord
+    comparePassword:(_passWord,passWord)=>{
+        return new Promise((resolve,reject) => {
+            //bcrypt的compare方法校验
+            bcrypt.compare(_passWord,passWord,(err,isMatch)=>{
+                console.log(err);
+                console.log(isMatch);
+                if(isMatch == true) {resolve(isMatch);}
+                else {reject(err);}
+            });
+        })
+    }
+}
 // 发布模型
 mongoose.model('User',userSchema);

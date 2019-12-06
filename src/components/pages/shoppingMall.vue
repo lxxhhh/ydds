@@ -17,7 +17,7 @@
     <div class="swiper-area">
       <van-swipe :autoplay="2000" indicator-color="#fc6a4d">
         <van-swipe-item v-for="(item,index) in bannerPic" :key="index">
-          <img v-lazy="item.image" alt width="100%" />
+          <img v-lazy="item.IMAGE" alt width="100%" />
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -28,6 +28,7 @@
         <span>{{cate.mallCategoryName}}</span>
       </div>
     </div>
+    
     <div class="banner-adv">
       <img v-lazy="adBanner.PICTURE_ADDRESS" width="100%" />
     </div>
@@ -46,7 +47,7 @@
     <floor-Component :floorData="floor3" :floorTitle="floorName.floor3"></floor-Component>
   
     <!--Hot Area-->
-    <hot-area :hotGoods="hotGoods"></hot-area>
+    <hot-area></hot-area>
   
   
   
@@ -66,7 +67,9 @@ export default {
       locationIcon: require("../../../static/images/location.png"),
       bannerPic: [],
       category: [],
-      adBanner: [],
+      adBanner: {
+      "PICTURE_ADDRESS": "http://images.baixingliangfan.cn/advertesPicture/20180404/20180404085441_850.gif"
+    },
       recommendGoods: [],
       floor1: [],
       floor2: [],
@@ -86,21 +89,13 @@ export default {
   },
   created() {
     axios({
-      url:url.getShopingMallInfo,
-      method: "get"
+      url:url.getSlidesInfo,
+      method: "post"
     })
       .then(response => {
         console.log(response);
         if (response.status == 200) {
-          this.category = response.data.data.category;
-          this.adBanner = response.data.data.advertesPicture;
-          this.bannerPic = response.data.data.slides;
-          this.recommendGoods = response.data.data.recommend;
-          this.floor1 = response.data.data.floor1;
-          this.floor2 = response.data.data.floor2;
-          this.floor3 = response.data.data.floor3;
-          this.floorName = response.data.data.floorName;
-          this.hotGoods = response.data.data.hotGoods;
+          this.bannerPic = response.data.message;
         }
       })
       .catch(error => {

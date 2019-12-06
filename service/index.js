@@ -6,32 +6,33 @@ const mongoose = require('mongoose');
 
 // 解析post请求 koa-bodyparser中间件可以把koa2上下文的formData数据解析到ctx.request.body
 const bodyParser = require('koa-bodyparser');
+app.use(bodyParser());
 
 //解决跨域问题
-const cors = require('koa2-cors');
+const cors = require('koa2-cors');// CORS是一个W3C标准，全称是"跨域资源共享"
+app.use(cors());//全部允许跨域
 
 // 路由插件
 const Router = require('koa-router');
 let user = require('./appApi/user.js');
 let home = require('./appApi/home.js');
-
-app.use(bodyParser());
-app.use(cors());
+let goods = require('./appApi/goods.js');
 
 // 装载所有子路由
 let router = new Router();
 router.use('/user',user.routes());
 router.use('/home',home.routes());
+router.use('/goods',goods.routes());
 
 // 加载路由中间件
 app.use(router.routes());
 app.use(router.allowedMethods());
 
+
+
 (async ()=> {
     await connect();
     initSchemas();
-   
-
 })()
 
 

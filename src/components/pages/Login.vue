@@ -1,7 +1,7 @@
 <template>
   <div>
      <van-nav-bar 
-        title="用户注册"
+        title="用户登录"
         left-text="返回"
         left-arrow
         @click-left="GoBack"
@@ -26,7 +26,7 @@
             required
         />
         <div class="register-button">
-            <van-button type="primary" size="large" @click="RegisterAction" :loading="openLoading">马上注册</van-button>
+            <van-button type="primary" size="large" @click="LoginAction" :loading="openLoading">马上登录</van-button>
         </div>
        </div>
   </div>
@@ -41,22 +41,28 @@ export default {
             return {
                 passWord:'',
                 userName:'',
-                openLoading:false,   //仿重复提交
+                openLoading:false,   //是否开启用户的Loading
                 usernameErrorMsg:'',   //当用户名出现错误的时候
                 passwordErrorMsg:'',   //当密码出现错误的时候
             }
         },
+        // created() {
+        //     if(localStorage.userInfo){
+        //         Toast.fail('您已经登录'); 
+        //         this.$router.push({name:'shoppingMall',params:{userName:localStorage.userInfo.userName}});
+        //     }
+        // },
         methods: {
             GoBack(){
                 this.$router.go(-1)   
             },
-            RegisterAction(){
-                 this.checkForm() && this.axiosRegisterUser()
+            LoginAction(){
+                 this.checkForm() && this.axiosLoginUser()
             },
-            axiosRegisterUser(){
+            axiosLoginUser(){
                 this.openLoading = true;
                 axios({
-                    url : url.registerUser,
+                    url : url.loginUser,
                     method : 'post',
                     data : {
                         userName : this.userName,
@@ -65,26 +71,38 @@ export default {
 
                 })
                 .then(response => {
+
                     console.log(response);
-                    if(response.data.code == 200){
-                        Toast.success(response.data.message);
-                        this.$router.push('/');
+                    if(response.data.code == 200 && response.data.message){
+                        this.openLoading=false;
+                        //将登录信息存储起来
+                        new Promise((resolve,reject)=>{
+                            localStorage.userInfo = {userName:this.userName};
+                            // localStorage.userName = this.userName;
+                            setTimeout( ()=>{resolve()},500) 
+                        }).then(()=>{
+                                Toast.fail('登录成功'); 
+                                this.$router.push('/');
+                            }).catch(err=>{
+                                Toast.fail('登录状态存储失败'); 
+                                console.log(err);
+                            });
+                       
+                        
                     }else{
-                        console.log(response.data.message);
                         this.openLoading = false;
-                        Toast.fail('注册失败'); //注册相同的名字的时候，代码走到这里 
+                        Toast.fail('登录失败'); 
                     }
                 })
                 .catch((error) => {
                     console.log(error);
                     this.openLoading = false;
-                    Toast.fail('注册失败');
+                    Toast.fail('登录失败');
                 })
             },
-            // 表单验证
             checkForm(){
                 let isOk = true;
-                if(this.userName.length<5){
+                if(this.userName.length<3){
                     this.usernameErrorMsg="用户名不能小于5位";
                     isOk= false;
                 }
