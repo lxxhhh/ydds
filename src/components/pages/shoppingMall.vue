@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- <input type="number" v-model="money" @input="change" placeholder="请输入金额"> -->
     <div class="search-bar">
       <van-row>
         <van-col span="3">
@@ -28,7 +29,7 @@
         <span>{{cate.mallCategoryName}}</span>
       </div>
     </div>
-    
+
     <div class="banner-adv">
       <img v-lazy="adBanner.PICTURE_ADDRESS" width="100%" />
     </div>
@@ -38,13 +39,13 @@
     <swiperDefault :goods="recommendGoods"></swiperDefault>
 
     <!--floor one area-->
-    <floor-Component :floorData="floor1" :floorTitle="floorName.floor1"></floor-Component>
+    <floor-Component :floorData="floor1"></floor-Component>
 
     <!--floor two area-->
-    <floor-Component :floorData="floor2" :floorTitle="floorName.floor2"></floor-Component>
+    <floor-Component :floorData="floor2"></floor-Component>
 
     <!--floor three area-->
-    <floor-Component :floorData="floor3" :floorTitle="floorName.floor3"></floor-Component>
+    <floor-Component :floorData="floor3"></floor-Component>
   
     <!--Hot Area-->
     <hot-area></hot-area>
@@ -74,11 +75,10 @@ export default {
       floor1: [],
       floor2: [],
       floor3: [],
-      floorName: {},
-      hotGoods:[],
       swiperOption: {
         slidesPerView: 3
-      }
+      },
+      // money:''
     };
   },
 
@@ -88,12 +88,20 @@ export default {
     hotArea
   },
   created() {
-    axios({
+    this.getBannerPic();
+    this.getfloorGoods();
+  },
+  methods: {
+    // change(){
+    //   console.log(typeof(this.money));
+    //  this.money = Math.floor(this.money * 100) / 100;
+    // },
+    getBannerPic(){
+      axios({
       url:url.getSlidesInfo,
       method: "post"
     })
       .then(response => {
-        console.log(response);
         if (response.status == 200) {
           this.bannerPic = response.data.message;
         }
@@ -102,7 +110,24 @@ export default {
         console.log(error);
         alert("连接失败");
       });
-  }
+    },
+    getfloorGoods(){
+      axios({
+        url : url.getfloorGoodsInfo,
+        method : 'post'
+      })
+      .then(response => {
+        this.floor1 = response.data.message.slice(0,5);
+        this.floor2 = response.data.message.slice(5,10);
+        this.floor3 = response.data.message.slice(10,15);
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+        alert('连接失败');
+      })
+    }
+  },
 };
 </script>
 

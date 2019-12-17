@@ -10,25 +10,31 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+
+    // 首页
     {
       path: '/',
       name: 'shoppingMall',
       component: shoppingMall
     },
+    // 注册
     {
       path: '/register',
       name: 'register',
       component: Register
     },
+  // 登录
     {
       path: '/login',
       name: 'login',
       component: Login
     },
+  //全部商品
     {path: '/Goods',
     name: 'Goods',
     component: Goods
   },
+  // 商品详细信息
     {path: '/GoodsInfo/:ID',
     name: 'GoodsInfo',
     component: GoodsInfo},

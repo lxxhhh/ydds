@@ -3,11 +3,11 @@
     <div class="recommend-title">商品推荐</div>
     <div class="recommend-body">
       <swiper :options="swiperOption">
-        <swiper-slide v-for="(good, index) in goods" :key="index">
+        <swiper-slide v-for="(good, index) in goodsInfo" :key="index">
           <div class="recommend-item">
-            <img :src="good.image" width="80%" />
-            <div>{{good.goodsName}}</div>
-            <div>￥{{good.price | mFilter}}(￥{{good.mallPrice | mFilter}})</div>  <!--  | 符号前面是过滤器的传参，后面是过滤器的返回值，前面传入参数，后面在过滤器的函数里面可以看到传参的值 -->
+            <img :src="good.IMAGE" width="80%" />
+            <div> <router-link :to="{name:'GoodsInfo',params:{ID: good.ID}}">{{good.NAME}}</router-link></div>
+            <div>￥{{good.PRESENT_PRICE | mFilter}}(￥{{good.ORI_PRICE | mFilter}})</div>  <!--  | 符号前面是过滤器的传参，后面是过滤器的返回值，前面传入参数，后面在过滤器的函数里面可以看到传参的值 -->
           </div>
         </swiper-slide>
       </swiper>
@@ -16,12 +16,16 @@
 </template>
 
 <script>
+
+import axios from 'axios'
+import url from '@/serviceAPI.config.js'
+
+
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import {toMoney} from '@/filter/moneyFilter.js'
 
 export default {
-  props: ["goods"],
   data() {
     return {
       //   slide: [1, 2, 3, 4, 5, 6],
@@ -34,9 +38,27 @@ export default {
         //       el: ".swiper-pagination",
         //       clickable:true
         //     }
-      }
-    };
+      },
+      goodsInfo:[],
+    }
   },
+     created() {
+         this.getInfo();
+     },
+    methods: {
+        getInfo(){
+            axios({
+                url:url.getDetailGoodsInfo,
+                method:'post',
+            }).then(response=>{
+                
+                this.goodsInfo = response.data.message.slice(0,10);
+                })
+                .catch(error=>{
+                    console.log(error)
+                })
+        }
+    },
 
   filters:{
     mFilter(money){

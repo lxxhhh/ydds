@@ -12,7 +12,6 @@ exports.connect = () => {
 
     // 连接数据库
     mongoose.connect(db);
- //   return new Promise()
 
          let maxConnectTimes = 0 ;
         return new Promise((resolve,reject)=>{

@@ -56,12 +56,12 @@ app.use(router.allowedMethods());
 // });
 app.use(async(ctx,next) => {
     ctx.body='<h1>Hello Koa2</h1>';
-    console.log('第三步')
+    // console.log('第三步')
 });
 
 // setTimeout(() => {console.log('第四步');});
 
-// 输出先后顺序为：第一步 第三步  第二步
+// 输出先后顺序为：第一步 第三步  第二步 第四步
 
 app.listen(3000,()=>{
     console.log('[Server] 3000');

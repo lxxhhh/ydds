@@ -41,7 +41,7 @@ import {toMoney} from '@/filter/moneyFilter.js'
                 url:url.getDetailGoodsInfo,
                 method:'post',
             }).then(response=>{
-                this.hotGoods = response.data.message;
+                this.hotGoods = response.data.message.slice(10,20);
                 })
                 .catch(error=>{
                     console.log(error)

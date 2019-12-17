@@ -1,0 +1,66 @@
+{
+	"floor": [{
+			"ID": "ae4e71807a91460792670b657fa3ed3a",
+			"IMAGE": "http://images.baixingliangfan.cn/homeFloor/20180407/20180407181423_15.jpg",
+			"floorName": "营养奶品"
+		}, {
+			"ID": "2a398a5048074fc3b36bc8026bf9dc65",
+			"IMAGE": "http://images.baixingliangfan.cn/homeFloor/20180407/20180407181216_8263.jpg",
+			"floorName": "营养奶品"
+		}, {
+			"ID": "b37577ce45ee4cc6ba162959933dbac8",
+			"IMAGE": "http://images.baixingliangfan.cn/homeFloor/20180407/20180407181247_7554.jpg",
+			"floorName": "营养奶品"
+		}, {
+			"ID": "43912e1f7b7842cab40fcdee9dbe8758",
+			"IMAGE": "http://images.baixingliangfan.cn/homeFloor/20180407/20180407181316_6196.jpg",
+			"floorName": "营养奶品"
+		}, {
+			"ID": "98922617593e44c9a5880329a4cf0fd0",
+			"IMAGE": "http://images.baixingliangfan.cn/homeFloor/20180407/20180407181348_4054.jpg",
+			"floorName": "营养奶品"
+		},
+		{
+			"ID": "d0fabe0c966043cb8313fa55de9c555b",
+			"IMAGE": "http://images.baixingliangfan.cn/homeFloor/20180407/20180407180547_3253.jpg",
+			"floorName": "新鲜水果"
+		}, {
+			"ID": "36360da2ec084316a100c2df1c714e37",
+			"IMAGE": "http://images.baixingliangfan.cn/homeFloor/20180407/20180407180631_4071.jpg",
+			"floorName": "新鲜水果"
+		}, {
+			"ID": "eb47b495b65d42b8a1fc5823dcd5589c",
+			"IMAGE": "http://images.baixingliangfan.cn/homeFloor/20180407/20180407180705_7181.jpg",
+			"floorName": "新鲜水果"
+		}, {
+			"ID": "7f6e857e83b240508836717c8764a0b0",
+			"IMAGE": "http://images.baixingliangfan.cn/homeFloor/20180407/20180407180736_2822.jpg",
+			"floorName": "新鲜水果"
+		}, {
+			"ID": "c7cb656294ea48d3b224ddee5fdd9647",
+			"IMAGE": "http://images.baixingliangfan.cn/homeFloor/20180408/20180408081756_7181.jpg",
+			"floorName": "新鲜水果"
+		},
+		{
+			"ID": "e53c046465204d4fb8f22431cc2807e7",
+			"IMAGE": "http://images.baixingliangfan.cn/homeFloor/20180407/20180407180109_6316.jpg",
+			"floorName": "休闲食品"
+		}, {
+			"ID": "f36f6dd8f62247d5846eaa9b3f269cbc",
+			"IMAGE": "http://images.baixingliangfan.cn/homeFloor/20180407/20180407180151_6180.jpg",
+			"floorName": "休闲食品"
+		}, {
+			"ID": "72a3ec63956347a2a9f113589fe79c03",
+			"IMAGE": "http://images.baixingliangfan.cn/homeFloor/20180407/20180407180217_3970.jpg",
+			"floorName": "休闲食品"
+		}, {
+			"ID": "a632bfb3818541da8e6843d6d0dbd917",
+			"IMAGE": "http://images.baixingliangfan.cn/homeFloor/20180407/20180407180257_2378.jpg",
+			"floorName": "休闲食品"
+		}, {
+			"ID": "6694401a30a940f6ae437d541b7fd26d",
+			"IMAGE": "http://images.baixingliangfan.cn/homeFloor/20180407/20180407180427_8557.jpg",
+			"floorName": "休闲食品"
+		}
+	]
+}
